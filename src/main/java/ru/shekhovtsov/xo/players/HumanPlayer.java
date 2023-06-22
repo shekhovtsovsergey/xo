@@ -1,19 +1,18 @@
 package ru.shekhovtsov.xo.players;
 
+import ru.shekhovtsov.xo.game.Board;
+
 import java.util.Scanner;
 
 public class HumanPlayer implements Player {
 
     private final String name;
-    private final char symbol;
-    private final int SIZE = 3;
-    private final char EMPTY = ' ';
+    private final char symbol = 'X';
     private final Scanner SCANNER = new Scanner(System.in);
-    private char[][] field = new char[SIZE][SIZE];
 
-    public HumanPlayer(String name, char symbol) {
-        this.name = name;
-        this.symbol = symbol;
+    public HumanPlayer() {
+        System.out.print("Enter your name: ");
+        this.name = SCANNER.nextLine();
     }
 
     @Override
@@ -27,13 +26,10 @@ public class HumanPlayer implements Player {
     }
 
     @Override
-    public int[] makeMove() {
-        while (true) {
-            System.out.print(getName() + ", введите координаты (строка [x], колонка [y]) разделитель пробел между координатами: ");
-            int row = SCANNER.nextInt() - 1;
-            int col = SCANNER.nextInt() - 1;
-                return new int[]{row, col};
-        }
+    public void move(Board board) {
+        System.out.print(getName() + ", enter coordinates (line [x], column [y]) space separator between coordinates: ");
+        int row = SCANNER.nextInt() - 1;
+        int col = SCANNER.nextInt() - 1;
+        board.makeMove(row,col,this);
     }
-
 }

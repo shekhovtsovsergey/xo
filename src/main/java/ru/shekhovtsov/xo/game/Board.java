@@ -8,7 +8,30 @@ public class Board {
     private final int SIZE = 3;
     private final char EMPTY = ' ';
     private char[][] field = new char[SIZE][SIZE];
+    private int countEmpty = SIZE * SIZE;
+    private boolean  gameOver = false;
 
+
+    public Board() {
+        initField();
+        print();
+    }
+
+    public void makeMove(int row, int column, Player player) {
+        if (field[row][column] == EMPTY) {
+            placeSymbol(row, column, player.getSymbol());
+            if (isWin(player)) {
+                System.out.println("Player " + player.getName() + " win!");
+                setGameOver(true);
+            } else if (!hasEmptyCells()) {
+                System.out.println("Draw!");
+                setGameOver(true);
+            }
+        } else {
+            System.out.println("Cell is occupied!");
+            player.move(this);
+        }
+    }
 
     public void initField() {
         for (int i = 0; i < SIZE; i++) {
@@ -31,8 +54,6 @@ public class Board {
         }
     }
 
-
-
     public boolean isWin(Player player) {
         char symbol = player.getSymbol();
         for (int i = 0; i < SIZE; i++) {
@@ -52,7 +73,6 @@ public class Board {
         return false;
     }
 
-
     public void placeSymbol(int row, int column, char symbol) {
         field[row][column] = symbol;
         countEmpty--;
@@ -62,9 +82,12 @@ public class Board {
         return countEmpty > 0;
     }
 
-    public int getCountEmpty() {
-        return countEmpty;
+    public boolean isGameOver() {
+        return gameOver;
     }
 
+    public void setGameOver(boolean gameOver) {
+        this.gameOver = gameOver;
+    }
 
 }

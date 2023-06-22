@@ -1,19 +1,16 @@
 package ru.shekhovtsov.xo.players;
 
+import ru.shekhovtsov.xo.game.Board;
+
 import java.util.Random;
-import java.util.Scanner;
+
 
 public class ComputerPlayer implements Player {
 
-    private final char symbol;
+    private final char symbol = '0';
     private final int SIZE = 3;
-    private final char EMPTY = ' ';
     private final Random RANDOM = new Random();
     private char[][] field = new char[SIZE][SIZE];
-
-    public ComputerPlayer(char symbol) {
-        this.symbol = symbol;
-    }
 
     @Override
     public char getSymbol() {
@@ -21,18 +18,12 @@ public class ComputerPlayer implements Player {
     }
     @Override
     public String getName() {
-        return "Компьютер";
+        return "Computer";
     }
-
     @Override
-    public int[] makeMove() {
-        while (true) {
+    public void move(Board board) {
             int row = RANDOM.nextInt(SIZE);
             int col = RANDOM.nextInt(SIZE);
-            return new int[]{row, col};
-        }
+            board.makeMove(row, col, this);
     }
-
-
-
 }
