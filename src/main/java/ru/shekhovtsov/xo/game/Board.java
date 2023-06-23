@@ -9,28 +9,34 @@ public class Board {
     private final char EMPTY = ' ';
     private char[][] field = new char[SIZE][SIZE];
     private int countEmpty = SIZE * SIZE;
-    private boolean  gameOver = false;
+    private final Game game;
 
 
-    public Board() {
+    public Board(Game game) {
         initField();
         print();
+        this.game = game;
     }
 
-    public void makeMove(int row, int column, Player player) {
+    public boolean makeMove(int row, int column, Player player) {
         if (field[row][column] == EMPTY) {
             placeSymbol(row, column, player.getSymbol());
             if (isWin(player)) {
                 System.out.println("Player " + player.getName() + " win!");
-                setGameOver(true);
+                    game.setGameOver(true);
+                    return true;
             } else if (!hasEmptyCells()) {
                 System.out.println("Draw!");
-                setGameOver(true);
+                game.setGameOver(true);
+                print();
+                    return true;
             }
         } else {
             System.out.println("Cell is occupied!");
-            player.move(this);
+            print();
+            return false;
         }
+        return true;
     }
 
     public void initField() {
@@ -82,12 +88,5 @@ public class Board {
         return countEmpty > 0;
     }
 
-    public boolean isGameOver() {
-        return gameOver;
-    }
-
-    public void setGameOver(boolean gameOver) {
-        this.gameOver = gameOver;
-    }
 
 }
