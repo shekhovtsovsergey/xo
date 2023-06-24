@@ -10,6 +10,17 @@ public class HumanPlayer implements Player {
     private char symbol;
     private final Scanner SCANNER = new Scanner(System.in);
 
+    @Override
+    public char getSymbol() {
+        return symbol;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+
     public HumanPlayer() {
         System.out.print("Enter your name: ");
         this.name = SCANNER.nextLine();
@@ -26,19 +37,9 @@ public class HumanPlayer implements Player {
     }
 
     @Override
-    public char getSymbol() {
-        return symbol;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
     public void move(Board board) {
         while (true) {
-            System.out.print(getName() + ", enter coordinates (line [x], column [y]) space separator between coordinates: ");
+            System.out.print(getName() + ", enter coordinates (row [y], column [x]) space separator between coordinates: ");
             int row = SCANNER.nextInt() - 1;
             int col = SCANNER.nextInt() - 1;
             if (board.makeMove(row, col, this)) {

@@ -19,24 +19,29 @@ public class Board {
     }
 
     public boolean makeMove(int row, int column, Player player) {
+        if (row >SIZE-1 || column > SIZE-1 || row < 0 || column < 0) {
+            System.out.println("Index out of bound");
+            return false;
+        }
+
         if (field[row][column] == EMPTY) {
             placeSymbol(row, column, player.getSymbol());
             if (isWin(player)) {
                 System.out.println("Player " + player.getName() + " win!");
-                    game.setGameOver(true);
-                    return true;
-            } else if (!hasEmptyCells()) {
+                game.setGameOver(true);
+                return true;
+            }
+            if (!hasEmptyCells()) {
                 System.out.println("Draw!");
                 game.setGameOver(true);
                 print();
-                    return true;
+                return true;
             }
-        } else {
-            System.out.println("Cell is occupied!");
-            print();
-            return false;
+            return true;
         }
-        return true;
+        System.out.println("Cell is occupied!");
+        print();
+        return false;
     }
 
     public void initField() {

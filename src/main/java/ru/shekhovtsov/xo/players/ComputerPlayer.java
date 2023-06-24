@@ -10,7 +10,6 @@ public class ComputerPlayer implements Player {
     private char symbol;
     private final int SIZE = 3;
     private final Random RANDOM = new Random();
-    private char[][] field = new char[SIZE][SIZE];
 
     public ComputerPlayer(char symbol) {
         this.symbol = symbol;
